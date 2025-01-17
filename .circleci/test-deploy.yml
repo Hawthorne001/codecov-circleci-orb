@@ -1,3 +1,4 @@
+---
 version: 2.1
 orbs:
   codecov: codecov/codecov@dev:alpha
@@ -56,12 +57,12 @@ jobs:
       - codecov/upload:
           flags: backend
       - codecov/upload:
-          cli_args: -v
-          file: coverage/coverage-final.json
+          fail_on_error: true
+          files: coverage/coverage-final.json
           flags: frontend
-          upload_args: -Z
+          verbose: true
       - codecov/upload:
-          file: coverage/coverage-final.json
+          files: coverage/coverage-final.json
           flags: alpine
           version: v0.2.2
       - codecov/upload:
@@ -79,16 +80,14 @@ jobs:
       - codecov/upload:
           flags: backend
       - codecov/upload:
-          cli_args: -v
-          commit_args: -Z
-          file: coverage/coverage-final.json
+          fail_on_error: true
+          files: coverage/coverage-final.json
           flags: frontend
-          report_args: -Z
-          upload_args: -Z
+          verbose: true
       - codecov/upload:
-          file: coverage/coverage-final.json
+          files: coverage/coverage-final.json
           flags: linux
-          version: v0.2.2
+          version: v0.7.4
       - codecov/upload:
           flags: string_flag,ENV_VAR_CONTAINING_FLAG
       - codecov/upload
@@ -96,7 +95,7 @@ jobs:
       ENV_VAR_CONTAINING_FLAG: env_var_flag
   test-macos:
     macos:
-      xcode: 14.1
+      xcode: 14.3.1
     steps:
       - checkout
       - attach_workspace:
@@ -104,14 +103,14 @@ jobs:
       - codecov/upload:
           flags: backend
       - codecov/upload:
-          cli_args: -v
-          file: coverage/coverage-final.json
+          fail_on_error: true
+          files: coverage/coverage-final.json
           flags: frontend
-          upload_args: -Z
+          verbose: true
       - codecov/upload:
-          file: coverage/coverage-final.json
+          files: coverage/coverage-final.json
           flags: macos
-          version: v0.2.2
+          version: v0.7.4
       - codecov/upload:
           flags: string_flag,ENV_VAR_CONTAINING_FLAG
       - codecov/upload
@@ -128,12 +127,12 @@ jobs:
       - codecov/upload:
           flags: backend
       - codecov/upload:
-          cli_args: -v
-          file: coverage/coverage-final.json
+          fail_on_error: true
+          files: coverage/coverage-final.json
           flags: frontend
-          upload_args: -Z
+          verbose: true
       - codecov/upload:
-          file: coverage/coverage-final.json
+          files: coverage/coverage-final.json
           flags: windows
           version: v0.2.2
       - codecov/upload:
@@ -149,9 +148,9 @@ workflows:
           filters: *filters
       - test-frontend:
           filters: *filters
-#      - test-alpine:
-#          filters: *filters
-#          requires: [test-backend, test-frontend]
+          # - test-alpine:
+          #   filters: *filters
+          #   requires: [test-backend, test-frontend]
       - test-linux:
           filters:
             branches:
